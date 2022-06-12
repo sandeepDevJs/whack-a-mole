@@ -40,6 +40,7 @@
         const moles = document.querySelectorAll('.mole');
         let lastHole;
         let isTimeUp = false;
+        let score =0;
 
         function randomTime(max, min) {
             return Math.round(Math.random() * (max - min) + min)
@@ -67,6 +68,23 @@
                 if(!isTimeUp) peep();
             }, time);
         }
+
+        function startGame() {
+            scoreBoard.textContent = 0;
+            isTimeUp = false;
+            score = 0;
+            peep()
+            setTimeout(() => isTimeUp = true, 10000); //after 10sec game will be over.
+        }
+
+        function bonk(e) {
+            if(!e.isTrusted) return; //goli beta masti nahi.
+            score++;
+            this.classList.remove("up");
+            scoreBoard.textContent = score;
+        }
+
+        moles.forEach(e => e.addEventListener("click", bonk))
 
     </script>
 </body>
